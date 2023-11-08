@@ -21,7 +21,7 @@ for i = 1:size(A,1) %loop over the entire workload.txt file (line by line)
          Y = [Y a, a];       %concatenate 1 1 to Y
     end 
     
-    if i < 104
+    if i < size(A,1)
         if  z == A(i+1, 1)   %if the current arrival+duration is equal to next arrival, workload doesn't go to 0
             Y = [Y a, a];   %concatenate 1 1 to Y
         else
