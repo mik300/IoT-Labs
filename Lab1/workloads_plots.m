@@ -1,7 +1,25 @@
-%y = [1, 1,  1,  0,  0,  1,  1,  0,  0,  1,  1,  0,  0,  1,  1,  0,  0,  1,  1,  0,  0,  1,   1,   0];
-%x = [0, 0, 32, 32, 35, 35, 40, 40, 43, 43, 48, 48, 52, 52, 56, 56, 60, 60, 64, 64, 68, 68, 303, 303];
-
 A = importdata('workloads/workload_1.txt');
+ENERGYWL1 = importdata('results/workload_1_results.txt');
+ENERGYWL2 = importdata('results/workload_2_results.txt');
+TO = importdata('results/TO.txt');
+
+tiledlayout(1,2)
+figure(1)
+nexttile
+plot(TO,ENERGYWL1)
+title("Energy consumption of workload 1 vs. time out")
+xlabel('Time out time (in ms)') 
+ylabel('Energy dissipated')
+grid
+nexttile
+plot(TO,ENERGYWL2)
+title("Energy consumption of workload 2 vs. time out")
+ylabel('Energy consumption of workload 2 vs. time out')
+xlabel('Time out time (in ms)') 
+ylabel('Energy dissipated')
+grid
+
+
 X = []; %empty matrix to be filled in the loop, used as x values for plotting
 Y = [1]; %used as y values for plotting
 
@@ -31,4 +49,6 @@ for i = 1:size(A,1) %loop over the entire workload.txt file (line by line)
     end
 end
 Y = [Y 0];
+figure(2)
 plot(X, Y)
+grid
