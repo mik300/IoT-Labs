@@ -45,7 +45,9 @@ typedef int dpm_policy_t;
 typedef struct {
     /* Day2: you can add/change stuff here */
     psm_time_t timeout;
-} dpm_timeout_params;
+    int transition; //transition = 0 -> IDLE,  transition = 1 -> SLEEP
+} dpm_timeout_params; //We define here the structure of the timeout policy's parameters
+//In particular, we want to add an option to choose between idle and sleep
 
 /**
  * @brief Container for history policy parameters

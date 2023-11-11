@@ -56,7 +56,7 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
 
         // 1. Inactive phase
         t_inactive_start = t_curr;
-        while(t_curr < work_queue[next_work_item].arrival) {
+        while(t_curr < work_queue[next_work_item].arrival) { //if the current time is less than the arrival time of the item...
             if (!dpm_decide_state(&curr_state, prev_state, t_curr, t_inactive_start, history, sel_policy, tparams, hparams)) {
                 printf("[error] cannot decide next state!\n");
                 return 0;
@@ -112,7 +112,9 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
             next_work_item++;
         }
     }
-    free(work_queue);
+    free(work_queue); //Free the queue
+
+    //Section that generates the reports
 
     printf("[sim] Active time in profile = %.6lfs \n", t_active_ideal * PSM_TIME_UNIT);
     printf("[sim] Inactive time in profile = %.6lfs\n", t_inactive_ideal * PSM_TIME_UNIT);
@@ -132,6 +134,8 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
 }
 
 /* decide next power state */
+//Its inputs are: next state, current state, history, parameters of the time policy, parameter of the preditive policy(history)
+// and the selected policy
 int dpm_decide_state(psm_state_t *next_state, psm_state_t prev_state, psm_time_t t_curr,
         psm_time_t t_inactive_start, psm_time_t *history, dpm_policy_t policy,
         dpm_timeout_params tparams, dpm_history_params hparams)
@@ -140,8 +144,19 @@ int dpm_decide_state(psm_state_t *next_state, psm_state_t prev_state, psm_time_t
 
         case DPM_TIMEOUT:
             /* Day 2: EDIT */
+            //Reminder: tparams come from "dpm_simulator.c"
             if(t_curr > t_inactive_start + tparams.timeout) {
-                *next_state = PSM_STATE_IDLE;
+                switch (tparams.transition)
+                {
+                    case 0: //Run -> IDLE
+                        *next_state = PSM_STATE_IDLE;
+                        break;
+                    case 1: //Run -> SLEEP
+                        *next_state = PSM_STATE_SLEEP;
+                    default:
+                        break;
+                }
+                
             } else {
                 *next_state = PSM_STATE_RUN;
             }
