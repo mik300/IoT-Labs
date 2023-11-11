@@ -19,8 +19,8 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
     psm_time_t t_state[PSM_N_STATES] = {0};
     psm_time_t history[DPM_HIST_WIND_SIZE];
     int n_tran_total;
-    int next_work_item;
-    int num_work_items;
+    int next_work_item; //Counter that helps us to keek track of the curren item
+    int num_work_items; //Number ot items to be executed by the simulation
 
     // creates the queue of work items to be executed by the simulated system
     work_queue = dpm_init_work_queue(&num_work_items, fwl);
@@ -49,10 +49,10 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
     // DPM Simulation loop
     t_curr = 0;
     n_tran_total = 0;
-    next_work_item = 0;
+    next_work_item = 0; 
     dpm_init_history(history);
 
-    while (next_work_item < num_work_items) {
+    while (next_work_item < num_work_items) { 
 
         // 1. Inactive phase
         t_inactive_start = t_curr;

@@ -13,6 +13,7 @@ int parse_args(int argc, char *argv[], char *fwl, psm_t *psm, dpm_policy_t
         }
 
         // set policy to timeout and get timeout value
+        //Time-based policy
         if(strcmp(argv[cur], "-t") == 0) {
             *selected_policy = DPM_TIMEOUT;
             if(argc > cur + 1) {
@@ -22,6 +23,7 @@ int parse_args(int argc, char *argv[], char *fwl, psm_t *psm, dpm_policy_t
         }
 
         // set policy to history based and get parameters and thresholds
+        //Predictive policy
         if(strcmp(argv[cur], "-h") == 0) {
             *selected_policy = DPM_HISTORY;
             if(argc > cur + DPM_HIST_WIND_SIZE + 2){
