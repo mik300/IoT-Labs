@@ -23,6 +23,10 @@ int main(int argc, char *argv[]) {
         return -1;
     }
     psm_print(psm);
-	dpm_simulate(psm, sel_policy, tparams, hparams, fwl);
+    //The values that are passed here come from "utilities.c" which read the values provided by the person who wants to run the simulator
+	//These values are given via terminal 
+    printf("%d\n", tparams.transition);
+    dpm_simulate(psm, sel_policy, tparams, hparams, fwl);
+    
 
 }

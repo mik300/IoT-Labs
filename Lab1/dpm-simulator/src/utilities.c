@@ -18,6 +18,8 @@ int parse_args(int argc, char *argv[], char *fwl, psm_t *psm, dpm_policy_t
             *selected_policy = DPM_TIMEOUT;
             if(argc > cur + 1) {
                 tparams->timeout = atof(argv[++cur]);
+                tparams->transition = 1 //This has to be modified to consider the second parameter of the structure
+                //WE HAVE TO CHANGE THIS
             }
             else return	0;
         }

@@ -3,7 +3,7 @@
 int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
 		tparams, dpm_history_params hparams, char* fwl)
 {
-    dpm_work_item *work_queue;
+    dpm_work_item *work_queue; 
     psm_state_t curr_state = PSM_STATE_RUN;
     psm_state_t prev_state = PSM_STATE_RUN;
     psm_energy_t e_total = 0;
@@ -23,6 +23,7 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
     int num_work_items; //Number ot items to be executed by the simulation
 
     // creates the queue of work items to be executed by the simulated system
+    //Each work item has duration and arrival time as their parameters
     work_queue = dpm_init_work_queue(&num_work_items, fwl);
     if (work_queue == NULL){
         return 0;
@@ -57,10 +58,13 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
         // 1. Inactive phase
         t_inactive_start = t_curr;
         while(t_curr < work_queue[next_work_item].arrival) { //if the current time is less than the arrival time of the item...
-            if (!dpm_decide_state(&curr_state, prev_state, t_curr, t_inactive_start, history, sel_policy, tparams, hparams)) {
+            //IMPORTANT: curr_state is the same next_state. It works with pointers
+            if (!dpm_decide_state&(curr_state, prev_state, t_curr, t_inactive_start, history, sel_policy, tparams, hparams)) {
                 printf("[error] cannot decide next state!\n");
                 return 0;
             }
+            //Originally, curr_state is "Run"and prev_state is "Run" too. 
+            //Then, curr_state changes depending on the value passed by next_state
             if (curr_state != prev_state) {
                 if(!psm_tran_allowed(psm, prev_state, curr_state)) {
                     printf("[error] prohibited transition!\n");
@@ -145,8 +149,11 @@ int dpm_decide_state(psm_state_t *next_state, psm_state_t prev_state, psm_time_t
         case DPM_TIMEOUT:
             /* Day 2: EDIT */
             //Reminder: tparams come from "dpm_simulator.c"
+            //IMPORTANT: curr_state is the same next_state. It works with pointers
+            printf("%d\n", tparams.transition);
             if(t_curr > t_inactive_start + tparams.timeout) {
-                switch (tparams.transition)
+                int p = 0;
+                switch (p)
                 {
                     case 0: //Run -> IDLE
                         *next_state = PSM_STATE_IDLE;
