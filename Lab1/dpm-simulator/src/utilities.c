@@ -18,7 +18,9 @@ int parse_args(int argc, char *argv[], char *fwl, psm_t *psm, dpm_policy_t
             *selected_policy = DPM_TIMEOUT;
             if(argc > cur + 1) {
                 tparams->timeout = atof(argv[++cur]);
-                tparams->transition = 1 //This has to be modified to consider the second parameter of the structure
+                // ./dpm-simulator/dpm_simulator -t $c -psm ./dpm-simulator/example/${psm}.txt -wl ./workloads/${file}.txt | tail -1 | grep -Eo "[0-9]+\.[0-9]+J$" >> results/${file}_result.txt
+
+                tparams->transition = atof(argv[++cur]);; //This has to be modified to consider the second parameter of the structure
                 //WE HAVE TO CHANGE THIS
             }
             else return	0;

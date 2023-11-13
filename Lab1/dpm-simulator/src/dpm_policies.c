@@ -59,7 +59,7 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
         t_inactive_start = t_curr;
         while(t_curr < work_queue[next_work_item].arrival) { //if the current time is less than the arrival time of the item...
             //IMPORTANT: curr_state is the same next_state. It works with pointers
-            if (!dpm_decide_state&(curr_state, prev_state, t_curr, t_inactive_start, history, sel_policy, tparams, hparams)) {
+            if (!dpm_decide_state(&curr_state, prev_state, t_curr, t_inactive_start, history, sel_policy, tparams, hparams)) {
                 printf("[error] cannot decide next state!\n");
                 return 0;
             }
@@ -152,14 +152,16 @@ int dpm_decide_state(psm_state_t *next_state, psm_state_t prev_state, psm_time_t
             //IMPORTANT: curr_state is the same next_state. It works with pointers
             printf("%d\n", tparams.transition);
             if(t_curr > t_inactive_start + tparams.timeout) {
-                int p = 0;
-                switch (p)
+                printf("%d\n", tparams.transition);
+                switch (tparams.transition)
                 {
                     case 0: //Run -> IDLE
                         *next_state = PSM_STATE_IDLE;
+                        printf("Transition Run -> IDLE");
                         break;
                     case 1: //Run -> SLEEP
                         *next_state = PSM_STATE_SLEEP;
+                        printf("Transition Run -> SLEEP");
                     default:
                         break;
                 }
