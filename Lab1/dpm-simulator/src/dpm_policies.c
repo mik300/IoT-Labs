@@ -181,17 +181,14 @@ int dpm_decide_state(psm_state_t *next_state, psm_state_t prev_state, psm_time_t
     switch (policy)
     {
 
-    case DPM_TIMEOUT:
-        /* Day 2: EDIT */
-        if (t_curr > t_inactive_start + tparams.timeout)
-        {
-            *next_state = PSM_STATE_IDLE;
-        }
-        else
-        {
-            *next_state = PSM_STATE_RUN;
-        }
-        break;
+        case DPM_TIMEOUT:
+            /* Day 2: EDIT */
+            if(t_curr > t_inactive_start + tparams.timeout) {
+                *next_state = PSM_STATE_SLEEP;
+            } else {
+                *next_state = PSM_STATE_RUN;
+            }
+            break;
 
     case DPM_HISTORY:
         /* Day 3: EDIT */
