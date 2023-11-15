@@ -54,24 +54,30 @@ if [ "$choice" == "h" ]; then
     rm results/using_history/Threshold1.txt
     rm results/using_history/Threshold2.txt
     rm results/using_history/${file}_energy_w_DPM.txt
+    rm results/using_history/${file}_fixed_Th2_energy_w_DPM.txt
+    rm results/using_history/${file}_fixed_Th1_energy_w_DPM.txt
     coeff_initial=0
     coeff_final=1
+    fixed_Thresh2=70
+    fixed_Thresh1=0
     for (( Thresh1=$Thresh1_initial; Thresh1<=$Thresh1_final; Thresh1=Thresh1+10 )) do
         for (( Thresh2=$Thresh2_initial; Thresh2<=$Thresh2_final; Thresh2=Thresh2+10 )) do
+
+            #uncomment the following command in case both thresholds are varying
             echo "Simulation when Threshold1 is $Thresh1 and Threshold2 is $Thresh2"
             echo "$Thresh1 $Thresh2" >> results/using_history/Thresholds.txt
             echo "$Thresh1" >> results/using_history/Threshold1.txt
             echo "$Thresh2" >> results/using_history/Threshold2.txt
-            coeff=$coeff_initial
-            ./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/psm.txt -wl ./workloads/workload_1.txt -h 1 $Thresh1 $Thresh2 | tail -1 | grep -oP '=[^=]+' | tail -1 | tr -d ' ' | sed 's/.$//; s/=//' >> results/using_history/${file}_energy_w_DPM.txt
-           #  while (( $(awk -v coeff="$coeff" -v final="$coeff_final" 'BEGIN {print (coeff <= final)}') )); do 
-          #      echo "coeff = $coeff"
-           #     echo "$Thresh1 $Thresh2 $coeff" >> results/using_history/Thresholds.txt
-          #      ./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/psm.txt -wl ./workloads/workload_1.txt -h $coeff $Thresh1 $Thresh2 | tail -1 | grep -Eo "[0-9]+\.[0-9]+J$" | sed 's/.$//' >> results/using_history/${file}_energy_w_DPM.txt
-           #     coeff=$(awk -v coeff="$coeff" 'BEGIN {printf "%.2f", coeff + 0.2}')
-           # done
+            ./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/psm.txt -wl ./workloads/${file}.txt -h 1 $Thresh1 $Thresh2 | tail -1 | grep -oP '=[^=]+' | tail -1 | tr -d ' ' | sed 's/.$//; s/=//' >> results/using_history/${file}_energy_w_DPM.txt
+
+            #uncomment the following command in case Threshold 2 is fixed
+            echo "Simulation when Threshold1 is $Thresh1 and Threshold2 is $fixed_Thresh2 (fixed)"
+            ./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/psm.txt -wl ./workloads/${file}.txt -h 1 $Thresh1 $fixed_Thresh2 | tail -1 | grep -oP '=[^=]+' | tail -1 | tr -d ' ' | sed 's/.$//; s/=//' >> results/using_history/${file}_fixed_Th2_energy_w_DPM.txt
+
+
+            #uncomment the following command in case Threshold 1 is fixed
+            echo "Simulation when Threshold1 is $fixed_Thresh1 (fixed) and Threshold2 is $Thresh2"
+            ./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/psm.txt -wl ./workloads/${file}.txt -h 1 $fixed_Thresh1 $Thresh2 | tail -1 | grep -oP '=[^=]+' | tail -1 | tr -d ' ' | sed 's/.$//; s/=//' >> results/using_history/${file}_fixed_Th1_energy_w_DPM.txt
         done
     done
 fi
-#  ./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/psm.txt -wl ./workloads/workload_1.txt -h 1 1 65
-#  ./dpm-simulator/dpm_simulator -t 20 -psm ./dpm-simulator/example/psm.txt -wl ./workloads/workload_1.txt
