@@ -19,6 +19,21 @@ xlabel('Time out time (in ms)')
 ylabel('Energy dissipated')
 grid
 
+ENERGYWL1_hist = importdata('results/using_history/workload_1_energy_w_DPM.txt');
+Threshold1 = importdata('results/using_history/Threshold1.txt');
+Threshold2 = importdata('results/using_history/Threshold2.txt');
+
+figure(4)
+plot3(Threshold1, Threshold2, ENERGYWL1_hist);
+xlabel('Threshold 1')
+ylabel('Threshold 2')
+zlabel('Energy')
+
+figure(5)
+plot(Threshold1, ENERGYWL1_hist);
+xlabel('Threshold 1')
+ylabel('Threshold 2')
+zlabel('Energy')
 
 X = []; %empty matrix to be filled in the loop, used as x values for plotting
 Y = [1]; %used as y values for plotting

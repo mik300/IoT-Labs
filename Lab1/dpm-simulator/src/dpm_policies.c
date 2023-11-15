@@ -1,5 +1,7 @@
 #include "inc/dpm_policies.h"
-
+int nb_of_print = 0;
+psm_time_t history[DPM_HIST_WIND_SIZE];
+psm_time_t history_active;
 int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
 		tparams, dpm_history_params hparams, char* fwl)
 {
@@ -12,14 +14,14 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
     psm_time_t t_curr = 0;
     psm_time_t t_inactive_start = 0;
     psm_time_t t_active_start = 0;
+    psm_time_t t_active_end = 0;
     psm_time_t t_tran_total = 0;
     psm_time_t t_waiting = 0;
 	psm_time_t t_inactive_ideal = 0;
     psm_time_t t_active_ideal = 0;
     psm_time_t t_total_no_dpm = 0;
     psm_time_t t_state[PSM_N_STATES] = {0};
-    psm_time_t history[DPM_HIST_WIND_SIZE];
-    psm_time_t history_active;
+    
     int n_tran_total;
     int next_work_item;
     int num_work_items;
@@ -73,6 +75,12 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
 
         // 1. Inactive phase
         t_inactive_start = t_curr;
+        //t_active_start = t_curr;
+        //printf("\n");
+        // printf("INIT t_curr = %lf     ", t_curr);
+        // printf("INIT t_active_start = %lf      \n", t_active_start);
+        history_active = t_active_end - t_active_start;
+        //printf("%lf = %lf - %lf      \n", history_active, t_active_end, t_active_start);
         while (t_curr < work_queue[next_work_item].arrival)
         {
             if (!dpm_decide_state(&curr_state, prev_state, t_curr, t_inactive_start, history, sel_policy, tparams, hparams))
@@ -107,21 +115,12 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
                     t_waiting += time_unit;
             }
             prev_state = curr_state;
+            
         }
         // update history based on last inactive time (this can be placed elsewhere depending on your policy)
         dpm_update_history(history, t_curr - t_inactive_start);
-        /*
-        printf("%lf\n", history[0]);
-        printf("%lf\n", history[1]);
-        printf("%lf\n", history[2]);
-        printf("%lf\n", history[3]); */
-        //printf("%lf\n", history[4]);
-        printf("%lf     ", t_curr);
-        printf("%lf\n", t_inactive_start);
-        
         
         // 2. Active phase
-        //t_active_start = t_curr;
         curr_state = PSM_STATE_RUN;
         if (curr_state != prev_state)
         {
@@ -137,23 +136,21 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
             e_total += e_tran;
             t_tran_total += t_tran;
             t_curr += t_tran;
-            //printf("In If: %lf     \n", t_curr);
             prev_state = PSM_STATE_RUN;
         }
-       // history_active = t_curr - t_active_start;
-       // printf("%lf     ", t_curr);
-       // printf("%lf\n", t_active_start);
+
+        //printf("start_active = %lf \n",t_curr);
+        t_active_start = t_curr;
         // do the queued work (there could be more than one item queued due to accumulated delays)
         while (next_work_item < num_work_items && t_curr >= work_queue[next_work_item].arrival)
         {
             
             t_curr += work_queue[next_work_item].duration;
-           // printf("In while: %lf     \n", t_curr);
             t_state[curr_state] += work_queue[next_work_item].duration;
             e_total += psm_state_energy(psm, curr_state, work_queue[next_work_item].duration);
             next_work_item++;
         }
-        
+        t_active_end = t_curr;
     }
     free(work_queue);
 
@@ -180,7 +177,7 @@ int dpm_decide_state(psm_state_t *next_state, psm_state_t prev_state, psm_time_t
                      psm_time_t t_inactive_start, psm_time_t *history, dpm_policy_t policy,
                      dpm_timeout_params tparams, dpm_history_params hparams)
 {   
-    double Tpred = 0.5;
+    double Tpred = 0;
     switch (policy)
     {
 
@@ -198,29 +195,16 @@ int dpm_decide_state(psm_state_t *next_state, psm_state_t prev_state, psm_time_t
 
     case DPM_HISTORY:
         /* Day 3: EDIT */
-        //printf("%lf\n", hparams.alpha[0]);
-        //printf("HERE");
         
-        for (int i = 0; i < DPM_HIST_WIND_SIZE; i++)
-        {
-            Tpred = Tpred + hparams.alpha[i] * history[DPM_HIST_WIND_SIZE - i];
-            //printf("%lf\n", Tpred);
-           // printf("\n");
-        }
-        
-        //Tpred = history[DPM_HIST_WIND_SIZE];
-        //printf("%lf\n", history[DPM_HIST_WIND_SIZE]);
-       //printf("%d\n", Tpred);
-       
-       //Tpred = 67;
-       //printf("%lf\n", hparams.threshold[0]);
-        //printf("%\n", Tpred);
+        Tpred = hparams.alpha*history_active;
+
         if (Tpred <= hparams.threshold[0])
         {
             *next_state = PSM_STATE_RUN;
         }
         else if (Tpred <= hparams.threshold[1])
         {
+            
             *next_state = PSM_STATE_IDLE;
         }
         else

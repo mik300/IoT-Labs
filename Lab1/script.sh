@@ -51,22 +51,27 @@ if [ "$choice" == "h" ]; then
     echo $Thresh2_final
 
     rm results/using_history/Thresholds.txt
+    rm results/using_history/Threshold1.txt
+    rm results/using_history/Threshold2.txt
     rm results/using_history/${file}_energy_w_DPM.txt
-    coeff_initial=-1
+    coeff_initial=0
     coeff_final=1
-    for (( Thresh1=$Thresh1_initial; Thresh1<=$Thresh1_final; Thresh1=Thresh1+1 )) do
-        for (( Thresh2=$Thresh2_initial; Thresh2<=$Thresh2_final; Thresh2=Thresh2+1 )) do
+    for (( Thresh1=$Thresh1_initial; Thresh1<=$Thresh1_final; Thresh1=Thresh1+10 )) do
+        for (( Thresh2=$Thresh2_initial; Thresh2<=$Thresh2_final; Thresh2=Thresh2+10 )) do
             echo "Simulation when Threshold1 is $Thresh1 and Threshold2 is $Thresh2"
             echo "$Thresh1 $Thresh2" >> results/using_history/Thresholds.txt
+            echo "$Thresh1" >> results/using_history/Threshold1.txt
+            echo "$Thresh2" >> results/using_history/Threshold2.txt
             coeff=$coeff_initial
-            coeff1=0.5
-            ./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/psm.txt -wl ./workloads/workload_1.txt -h $coeff1 $coeff1 $coeff1 $coeff1 $coeff1 $Thresh1 $Thresh2 | tail -1 | grep -oP '=[^=]+' | tail -1 | tr -d ' ' | sed 's/.$//; s/=//' >> results/using_history/${file}_energy_w_DPM.txt
-            # while (( $(awk -v coeff="$coeff" -v final="$coeff_final" 'BEGIN {print (coeff <= final)}') )); do 
-            #    echo "coeff = $coeff"
-             #   ./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/psm.txt -wl ./workloads/workload_1.txt -h $coeff $coeff $coeff $coeff $coeff $Thresh1 $Thresh2 | tail -1 | grep -Eo "[0-9]+\.[0-9]+J$" | sed 's/.$//' >> results/using_history/${file}_energy_w_DPM_h.txt
-              #  coeff=$(awk -v coeff="$coeff" 'BEGIN {printf "%.2f", coeff + 0.2}')
-            #done
+            ./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/psm.txt -wl ./workloads/workload_1.txt -h 1 $Thresh1 $Thresh2 | tail -1 | grep -oP '=[^=]+' | tail -1 | tr -d ' ' | sed 's/.$//; s/=//' >> results/using_history/${file}_energy_w_DPM.txt
+           #  while (( $(awk -v coeff="$coeff" -v final="$coeff_final" 'BEGIN {print (coeff <= final)}') )); do 
+          #      echo "coeff = $coeff"
+           #     echo "$Thresh1 $Thresh2 $coeff" >> results/using_history/Thresholds.txt
+          #      ./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/psm.txt -wl ./workloads/workload_1.txt -h $coeff $Thresh1 $Thresh2 | tail -1 | grep -Eo "[0-9]+\.[0-9]+J$" | sed 's/.$//' >> results/using_history/${file}_energy_w_DPM.txt
+           #     coeff=$(awk -v coeff="$coeff" 'BEGIN {printf "%.2f", coeff + 0.2}')
+           # done
         done
     done
 fi
-#./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/psm.txt -wl ./workloads/workload_1.txt -h 0.5 0.5 0.5 0.5 0.5 0 65
+#  ./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/psm.txt -wl ./workloads/workload_1.txt -h 1 1 65
+#  ./dpm-simulator/dpm_simulator -t 20 -psm ./dpm-simulator/example/psm.txt -wl ./workloads/workload_1.txt

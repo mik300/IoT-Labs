@@ -13,7 +13,7 @@
  * @{
  */
 /** history window size for history-based policies */
-#define DPM_HIST_WIND_SIZE 5
+#define DPM_HIST_WIND_SIZE 1
 /** number of thresholds for history-based policies */
 #define DPM_N_THRESHOLDS 2
 /** @} */
@@ -53,7 +53,7 @@ typedef struct {
  */
 typedef struct {
     /* Day3: you can add/change stuff here */
-    double alpha[DPM_HIST_WIND_SIZE]; /**< regression model coefficients */ //array of double
+    double alpha; /**< regression model coefficients */ //array of double
     psm_time_t threshold[DPM_N_THRESHOLDS]; /**< thresholds on the predicted time that trigger a state transition */
 } dpm_history_params;
 
