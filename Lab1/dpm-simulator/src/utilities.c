@@ -22,6 +22,7 @@ int parse_args(int argc, char *argv[], char *fwl, psm_t *psm, dpm_policy_t
         }
 
         // set policy to history based and get parameters and thresholds
+        // there should be 7 arguments for -h, first 5 are the alpha coefficients, the last 2 are the thresholds
         if(strcmp(argv[cur], "-h") == 0) {
             *selected_policy = DPM_HISTORY;
             if(argc > cur + DPM_HIST_WIND_SIZE + 2){

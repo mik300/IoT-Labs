@@ -1,7 +1,7 @@
 A = importdata('workloads/workload_1.txt');
-ENERGYWL1 = importdata('results/workload_1_results.txt');
-ENERGYWL2 = importdata('results/workload_2_results.txt');
-TO = importdata('results/TO.txt');
+ENERGYWL1 = importdata('results/using_TO/workload_1_energy_w_DPM.txt');
+ENERGYWL2 = importdata('results/using_TO/workload_2_energy_w_DPM.txt');
+TO = importdata('results/using_TO/TO.txt');
 
 tiledlayout(1,2)
 figure(1)
