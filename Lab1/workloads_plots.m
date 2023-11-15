@@ -1,8 +1,8 @@
 A = importdata('workloads/workload_1.txt');
 B = importdata('workloads/workload_2.txt');
-ENERGYWL1 = importdata('results/workload_1_results.txt');
-ENERGYWL2 = importdata('results/workload_2_results.txt');
-TO = importdata('results/TO.txt');
+ENERGYWL1 = importdata('results/using_TO/workload_1_energy_w_DPM.txt');
+ENERGYWL2 = importdata('results/using_TO/workload_2_energy_w_DPM.txt');
+TO = importdata('results/using_TO/TO.txt');
 
 
 figure(1)
@@ -20,6 +20,21 @@ xlabel('TO (in ms)')
 ylabel('Energy dissipated')
 grid
 
+ENERGYWL1_hist = importdata('results/using_history/workload_1_energy_w_DPM.txt');
+Threshold1 = importdata('results/using_history/Threshold1.txt');
+Threshold2 = importdata('results/using_history/Threshold2.txt');
+
+figure(4)
+plot3(Threshold1, Threshold2, ENERGYWL1_hist);
+xlabel('Threshold 1')
+ylabel('Threshold 2')
+zlabel('Energy')
+
+figure(5)
+plot(Threshold1, ENERGYWL1_hist);
+xlabel('Threshold 1')
+ylabel('Threshold 2')
+zlabel('Energy')
 
 X = []; %empty matrix to be filled in the loop, used as x values for plotting
 Y = [1]; %used as y values for plotting
