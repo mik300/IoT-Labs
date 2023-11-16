@@ -37,6 +37,8 @@ grid
 
 ENERGYWL1_hist_fixed_thresh2 = importdata('results/using_history/workload_1_fixed_Th2_energy_w_DPM.txt');
 figure(3)
+tiledlayout(1,2)
+nexttile
 plot(Threshold1, ENERGYWL1_hist_fixed_thresh2);
 title("Energy consumption of workload 1 vs. Threshold 1 (Threshold 2 = 70)")
 xlabel('Threshold 1')
@@ -44,9 +46,9 @@ ylabel('Energy')
 grid
 
 ENERGYWL1_hist_fixed_thresh1 = importdata('results/using_history/workload_1_fixed_Th1_energy_w_DPM.txt');
-figure(4)
 combined = [Threshold2 , ENERGYWL1_hist_fixed_thresh1];
 sorted_combined = sortrows(combined, 1);
+nexttile
 plot(sorted_combined(:, 1), sorted_combined(:, 2));
 title("Energy consumption of workload 1 vs. Threshold 2 (Threshold 1 = 0)")
 xlabel('Threshold 2')
@@ -57,7 +59,7 @@ grid
 ENERGYWL2_hist = importdata('results/using_history/workload_2_energy_w_DPM.txt');
 Threshold2 = importdata('results/using_history/Threshold2.txt');
 Threshold1 = importdata('results/using_history/Threshold1.txt');
-figure(5)
+figure(4)
 plot3(Threshold1, Threshold2, ENERGYWL2_hist);
 title("Energy consumption of workload 2 vs. Threshold 1 and Threshold 2")
 xlabel('Threshold 1')
@@ -66,7 +68,9 @@ zlabel('Energy')
 grid
 
 ENERGYWL2_hist_fixed_thresh2 = importdata('results/using_history/workload_2_fixed_Th2_energy_w_DPM.txt');
-figure(6)
+figure(5)
+tiledlayout(1,2)
+nexttile
 plot(Threshold1, ENERGYWL2_hist_fixed_thresh2);
 title("Energy consumption of workload 2 vs. Threshold 1 (Threshold 2 = 70)")
 xlabel('Threshold 1')
@@ -74,9 +78,9 @@ ylabel('Energy')
 grid
 
 ENERGYWL2_hist_fixed_thresh1 = importdata('results/using_history/workload_2_fixed_Th1_energy_w_DPM.txt');
-figure(7)
 combined2 = [Threshold2 , ENERGYWL2_hist_fixed_thresh1];
-sorted_combined2 = sortrows(combined, 1);
+sorted_combined2 = sortrows(combined2, 1);
+nexttile
 plot(sorted_combined2(:, 1), sorted_combined2(:, 2));
 title("Energy consumption of workload 2 vs. Threshold 2 (Threshold 1 = 0)")
 xlabel('Threshold 2')
@@ -112,7 +116,7 @@ for i = 1:size(A,1) %loop over the entire workload.txt file (line by line)
     end
 end
 Y = [Y 0];
-figure(8)
+figure(6)
 plot(X, Y)
 title("Workload 1")
 xlabel('Time (in ms)') 
@@ -151,7 +155,7 @@ for j = 1:size(B,1)
     end
 end
 Y1 = [Y1 0];
-figure(9)
+figure(7)
 plot(X1, Y1)
 title("Workload 2")
 xlabel('Time (in ms)') 

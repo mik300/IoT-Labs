@@ -67,16 +67,16 @@ if [ "$choice" == "h" ]; then
             echo "$Thresh1 $Thresh2" >> results/using_history/Thresholds.txt
             echo "$Thresh1" >> results/using_history/Threshold1.txt
             echo "$Thresh2" >> results/using_history/Threshold2.txt
-            ./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/psm.txt -wl ./workloads/${file}.txt -h 1 $Thresh1 $Thresh2 | tail -1 | grep -oP '=[^=]+' | tail -1 | tr -d ' ' | sed 's/.$//; s/=//' >> results/using_history/${file}_energy_w_DPM.txt
+            ./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/${psm}.txt -wl ./workloads/${file}.txt -h 1 $Thresh1 $Thresh2 | tail -1 | grep -oP '=[^=]+' | tail -1 | tr -d ' ' | sed 's/.$//; s/=//' >> results/using_history/${file}_energy_w_DPM.txt
 
             #Case Threshold 2 is fixed
             echo "Simulation when Threshold1 is $Thresh1 and Threshold2 is $fixed_Thresh2 (fixed)"
-            ./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/psm.txt -wl ./workloads/${file}.txt -h 1 $Thresh1 $fixed_Thresh2 | tail -1 | grep -oP '=[^=]+' | tail -1 | tr -d ' ' | sed 's/.$//; s/=//' >> results/using_history/${file}_fixed_Th2_energy_w_DPM.txt
+            ./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/${psm}.txt -wl ./workloads/${file}.txt -h 1 $Thresh1 $fixed_Thresh2 | tail -1 | grep -oP '=[^=]+' | tail -1 | tr -d ' ' | sed 's/.$//; s/=//' >> results/using_history/${file}_fixed_Th2_energy_w_DPM.txt
 
 
             #Case Threshold 1 is fixed
             echo "Simulation when Threshold1 is $fixed_Thresh1 (fixed) and Threshold2 is $Thresh2"
-            ./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/psm.txt -wl ./workloads/${file}.txt -h 1 $fixed_Thresh1 $Thresh2 | tail -1 | grep -oP '=[^=]+' | tail -1 | tr -d ' ' | sed 's/.$//; s/=//' >> results/using_history/${file}_fixed_Th1_energy_w_DPM.txt
+            ./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/${psm}.txt -wl ./workloads/${file}.txt -h 1 $fixed_Thresh1 $Thresh2 | tail -1 | grep -oP '=[^=]+' | tail -1 | tr -d ' ' | sed 's/.$//; s/=//' >> results/using_history/${file}_fixed_Th1_energy_w_DPM.txt
         done
     done
 fi
