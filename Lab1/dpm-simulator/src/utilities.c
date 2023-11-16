@@ -13,15 +13,21 @@ int parse_args(int argc, char *argv[], char *fwl, psm_t *psm, dpm_policy_t
         }
 
         // set policy to timeout and get timeout value
+        //Time-based policy
         if(strcmp(argv[cur], "-t") == 0) {
             *selected_policy = DPM_TIMEOUT;
             if(argc > cur + 1) {
                 tparams->timeout = atof(argv[++cur]);
+                // ./dpm-simulator/dpm_simulator -t $c -psm ./dpm-simulator/example/${psm}.txt -wl ./workloads/${file}.txt | tail -1 | grep -Eo "[0-9]+\.[0-9]+J$" >> results/${file}_result.txt
+
+                tparams->transition = atof(argv[++cur]);; //This has to be modified to consider the second parameter of the structure
+                //WE HAVE TO CHANGE THIS
             }
             else return	0;
         }
 
         // set policy to history based and get parameters and thresholds
+        //Predictive policy
         // there should be 7 arguments for -h, first 5 are the alpha coefficients, the last 2 are the thresholds
         if(strcmp(argv[cur], "-h") == 0) {
             *selected_policy = DPM_HISTORY;
