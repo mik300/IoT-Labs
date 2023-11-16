@@ -29,7 +29,7 @@ Threshold2 = importdata('results/using_history/Threshold2.txt');
 Threshold1 = importdata('results/using_history/Threshold1.txt');
 figure(2)
 plot3(Threshold1, Threshold2, ENERGYWL1_hist);
-title("Energy consumption of workload 2 vs. Threshold 1 and Threshold 2")
+title("Energy consumption of workload 1 vs. Threshold 1 and Threshold 2")
 xlabel('Threshold 1')
 ylabel('Threshold 2')
 zlabel('Energy')
