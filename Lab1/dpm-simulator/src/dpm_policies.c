@@ -139,7 +139,7 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
             prev_state = PSM_STATE_RUN;
         }
 
-        //printf("start_active = %lf \n",t_curr);
+        
         t_active_start = t_curr;
         // do the queued work (there could be more than one item queued due to accumulated delays)
         while (next_work_item < num_work_items && t_curr >= work_queue[next_work_item].arrival)

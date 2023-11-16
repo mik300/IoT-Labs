@@ -18,15 +18,14 @@ do
 done
 
 read -p "Select the workload to analyze: " file
-echo $file
+echo "$file.txt will be used for simulation"
 read -p "Select the file that describes the PSM of the resource: " psm
-echo $psm
+echo "$psm.txt will be used for simulation"
 
 if [ "$choice" == "t" ]; then
     read -p "Enter the initial TO for the simulation(unit is in ms): " TOin
-    echo $TOin
     read -p "Enter the final TO for the simulation(unit is in ms): " TOend
-    echo $TOend
+    echo "TO starts at $TOin and ends at $TOend"
 
 
     rm results/using_TO/TO.txt
@@ -44,11 +43,9 @@ fi
 if [ "$choice" == "h" ]; then
 
     read -p "Enter the initial and final value for the first threshold (unit is in ms): " Thresh1_initial Thresh1_final
-    echo $Thresh1_initial
-    echo $Thresh1_final
+    echo "Threshold 1 starts at $Thresh1_initial and ends at $Thresh1_final, with an increment of 10"
     read -p "Enter the initial and final value for the second threshold (unit is in ms): " Thresh2_initial Thresh2_final
-    echo $Thresh2_initial
-    echo $Thresh2_final
+    echo "Threshold 2 starts at $Thresh2_initial and ends at $Thresh2_final, with an increment of 10"
 
     rm results/using_history/Thresholds.txt
     rm results/using_history/Threshold1.txt
