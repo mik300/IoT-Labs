@@ -1,10 +1,11 @@
 Lab1/workloads_plots.asv
 .vscode
+Lab1/dos2unix.txt
 Lab1/.vs
 Lab1/results
+dpm-simulator\src\dpm_policies.o
 Lab1/dpm-simulator/dpm_simulator
 Lab1/dpm-simulator/dpm_simulator.o
 Lab1/dpm-simulator/src/dpm_policies.o
-Lab1\dpm-simulator\src\dpm_policies.o
 Lab1/dpm-simulator/src/psm.o
 Lab1/dpm-simulator/src/utilities.o
