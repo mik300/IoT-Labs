@@ -1,3 +1,7 @@
+#TBEidle = 0.732
+
+#TBEsleep = 73.41
+
 cd dpm-simulator/
 make clean
 make
@@ -6,7 +10,7 @@ cd ..
 read -p "Select the workload to analyze: " file
 echo "$file.txt will be used for simulation"
 read -p "Select the file that describes the PSM of the resource: " psm
-echo $psm
+echo "$psm.txt will be used for simulation"
 
 read -p "Enter the initial and final value for the first threshold (unit is in ms): " Thresh1_initial Thresh1_final
 echo "Threshold 1 starts at $Thresh1_initial and ends at $Thresh1_final, with an increment of 10"
