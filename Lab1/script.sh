@@ -40,26 +40,15 @@ if [ "$choice" == "t" ]; then
 
     rm results/using_TO/TO.txt
     rm results/using_TO/${file}_energy_w_DPM${out}.txt
-echo "$psm.txt will be used for simulation"
-
-if [ "$choice" == "t" ]; then
-    read -p "Enter the initial TO for the simulation(unit is in ms): " TOin
-    read -p "Enter the final TO for the simulation(unit is in ms): " TOend
-    echo "TO starts at $TOin and ends at $TOend"
-
-
-    rm results/using_TO/TO.txt
-    rm results/using_TO/${file}_energy_w_DPM${out}.txt
-
+    echo "$psm.txt will be used for simulation"
     for (( c=$TOin; c<=$TOend; c=c+1 )) do 
         echo "Simulation when TO is $c"
         echo "$c" >> results/using_TO/TO.txt
-    ./dpm-simulator/dpm_simulator -t $c -psm ./dpm-simulator/example/${psm}.txt -wl ./workloads/${file}.txt | tail -1 | grep -Eo "[0-9]+\.[0-9]+J$" | sed 's/.$//' >> results/using_TO/${file}_energy_w_DPM${out}.txt
+        ./dpm-simulator/dpm_simulator -t $c $transition -psm ./dpm-simulator/example/${psm}.txt -wl ./workloads/${file}.txt | tail -1 | grep -Eo "[0-9]+\.[0-9]+J$" | sed 's/.$//' >> results/using_TO/${file}_energy_w_DPM${out}.txt
+
     echo "-------------------------------------------------------------------------------------"
     done
 fi
-
-
 if [ "$choice" == "h" ]; then
 
     read -p "Enter the initial and final value for the first threshold (unit is in ms): " Thresh1_initial Thresh1_final
@@ -97,9 +86,7 @@ if [ "$choice" == "h" ]; then
         done
     done
 fi
-
-fi 
-
+ 
 if [ "$choice" == "h" ]; then
 
     read -p "Enter the initial and final value for the first threshold (unit is in ms): " Thresh1_initial Thresh1_final
