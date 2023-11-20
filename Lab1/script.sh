@@ -87,4 +87,4 @@ if [ "$choice" == "h" ]; then
     done
 fi
 
-#./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/psm.txt -wl ./workloads/workload_1.txt -h 0.5 0.5 0.5 0.5 0.5 0 65
+#./dpm-simulator/dpm_simulator -psm ./dpm-simulator/example/psm.txt -wl ./workloads/workload_1.txt -h 1 0 65
