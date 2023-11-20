@@ -16,6 +16,9 @@ echo $TOin
 read -p "Enter the final TO for the simulation(unit is in ms): " TOend
 echo $TOend
 
+read -p "Where do you want to read the results?: 0(Terminal), 1(Files): " show
+echo $show
+
 if [ "$transition" == "0" ]; then
     out=IDLE
 else
@@ -28,7 +31,15 @@ echo "$psm.txt will be used for simulation"
 for (( c=$TOin; c<=$TOend; c=c+1 )) do 
     echo "Simulation when TO is $c"
     echo "$c" >> results/using_TO/TO.txt
-    ./dpm-simulator/dpm_simulator -t $c $transition -psm ./dpm-simulator/example/${psm}.txt -wl ./workloads/${file}.txt | tail -1 | grep -Eo "[0-9]+\.[0-9]+J$" | sed 's/.$//' >> results/using_TO/${file}_energy_w_DPM${out}.txt
+    if [ "$show" == "0" ]; then
+        #For reading the results in the terminal
+        ./dpm-simulator/dpm_simulator -t $c $transition -psm ./dpm-simulator/example/${psm}.txt -wl ./workloads/${file}.txt #| tail -1 | grep -Eo "[0-9]+\.[0-9]+J$" | sed 's/.$//' >> results/using_TO/${file}_energy_w_DPM${out}.txt
 
-echo "-------------------------------------------------------------------------------------"
+    else
+        #For writing the results in the
+        ./dpm-simulator/dpm_simulator -t $c $transition -psm ./dpm-simulator/example/${psm}.txt -wl ./workloads/${file}.txt | tail -1 | grep -Eo "[0-9]+\.[0-9]+J$" | sed 's/.$//' >> results/using_TO/${file}_energy_w_DPM${out}.txt
+    fi
+    echo "-------------------------------------------------------------------------------------"  
+
+
 done
