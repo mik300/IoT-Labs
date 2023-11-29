@@ -184,18 +184,14 @@ int dpm_decide_state(psm_state_t *next_state, psm_state_t prev_state, psm_time_t
         case DPM_TIMEOUT:
             //Reminder: tparams come from "dpm_simulator.c"
             //IMPORTANT: curr_state is the same next_state. It works with pointers
-            printf("%d\n", tparams.transition);
             if(t_curr > t_inactive_start + tparams.timeout) {
-                printf("%d\n", tparams.transition);
                 switch (tparams.transition)
                 {
                     case 0: //Run -> IDLE
                         *next_state = PSM_STATE_IDLE;
-                        printf("Transition Run -> IDLE");
                         break;
                     case 1: //Run -> SLEEP
                         *next_state = PSM_STATE_SLEEP;
-                        printf("Transition Run -> SLEEP");
                     default:
                         break;
                 }
