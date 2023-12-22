@@ -5,7 +5,7 @@ luminance_parameterINIT = input(prompt);
 
 if luminance_parameterINIT <= 0 
    error('Input cannot be equal or lower than 0'); 
-end
+end;
 
 prompt = "What is the final value to analyze ? ";
 luminance_parameterOUT = input(prompt);
