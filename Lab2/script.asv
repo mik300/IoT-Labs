@@ -38,9 +38,7 @@ for k = 1:length(myFiles)
             distortion_percentage = distortion_perc(img_rgb, mod_rgb);
             COMP_distortion = [COMP_distortion distortion_percentage];
             COMP_power_saving = [COMP_power_saving average_power_saving];
-            if k == 1
-                blue_param = [blue_param ; i];
-            end
+            blue_param = [blue_param i]
         end
         General_distortion = [ General_distortion ; COMP_distortion ];
         %General_original_power = [General_original_power ; COMP_original_power];
