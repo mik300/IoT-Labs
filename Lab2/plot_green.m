@@ -5,4 +5,4 @@ ylabel('Average power')
 xlabel('Average distortion') 
 grid
 label = strcat('g = ', num2str(constant));
-text(Average_distortion_G, Average_average_power_saving_G + 0.05, label)
+text(Average_distortion_G, Average_average_power_saving_G + 0.1, label)
