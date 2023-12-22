@@ -30,10 +30,8 @@ number_images = 0;
 elements_folder1 = 1;
 elements_folder2 = 1;
 
-filename_R_max_dist = '';
-filename_R_min_dist = '';
-filename_R_max_saving = '';
-filename_R_min_saving = '';
+filename_R_max = '';
+filename_R_min = '';
 param_R_max = 0;
 param_R_min = 0;
 dist_R_max = 0;
@@ -41,10 +39,8 @@ dist_R_min = 0;
 saving_R_max = 0;
 saving_R_min = 0;
 
-filename_G_max_dist = '';
-filename_G_min_dist = '';
-filename_G_max_saving = '';
-filename_G_min_saving = '';
+filename_G_max = '';
+filename_G_min = '';
 param_G_max = 0;
 param_G_min = 0;
 dist_G_max = 0;
@@ -52,10 +48,8 @@ dist_G_min = 0;
 saving_G_max = 0;
 saving_G_min = 0;
 
-filename_B_max_dist = '';
-filename_B_min_dist = '';
-filename_B_max_saving = '';
-filename_B_min_saving = '';
+filename_B_max = '';
+filename_B_min = '';
 param_B_max = 0;
 param_B_min = 0;
 dist_B_max = 0;
@@ -97,9 +91,7 @@ for k = 1:length(myFiles) + length(myFiles2)
             average_power_saving_B = saving_perc(image_power_consumption, modified_power_consumption_B);
             distortion_percentage_B = distortion_perc(img_rgb, mod_rgb_B);
             if distortion_percentage_B <= dist_B_min
-                dist_B_min = distortion_percentage_B;
-                
-            end
+                dist_B_min
             
             COMP_distortion_B = [COMP_distortion_B distortion_percentage_B];
             COMP_power_saving_B = [COMP_power_saving_B average_power_saving_B];
