@@ -30,6 +30,34 @@ number_images = 0;
 elements_folder1 = 1;
 elements_folder2 = 1;
 
+filename_R_max = '';
+filename_R_min = '';
+param_R_max = 0;
+param_R_min = 0;
+dist_R_max = 0;
+dist_R_min = 0;
+saving_R_max = 0;
+saving_R_min = 0;
+
+filename_G_max = '';
+filename_G_min = '';
+param_G_max = 0;
+param_G_min = 0;
+dist_G_max = 0;
+dist_G_min = 0;
+saving_G_max = 0;
+saving_G_min = 0;
+
+filename_B_max = '';
+filename_B_min = '';
+param_B_max = 0;
+param_B_min = 0;
+dist_B_max = 0;
+dist_B_min = 0;
+saving_B_max = 0;
+saving_B_min = 0;
+
+
 for k = 1:length(myFiles) + length(myFiles2)
 
     %Read first folder
@@ -62,8 +90,12 @@ for k = 1:length(myFiles) + length(myFiles2)
             modified_power_consumption_B = P_image(mod_rgb_B);
             average_power_saving_B = saving_perc(image_power_consumption, modified_power_consumption_B);
             distortion_percentage_B = distortion_perc(img_rgb, mod_rgb_B);
+            if distortion_percentage_B <= dist_B_min
+                dist_B_min
+            
             COMP_distortion_B = [COMP_distortion_B distortion_percentage_B];
             COMP_power_saving_B = [COMP_power_saving_B average_power_saving_B];
+            
             
             mod_rgb_R = red_transformation(img_rgb,i);
             modified_power_consumption_R = P_image(mod_rgb_R);
@@ -83,7 +115,9 @@ for k = 1:length(myFiles) + length(myFiles2)
                 constant = [constant ; i];
             end
         end
-        General_distortion_B = [ General_distortion_B ; COMP_distortion_B ];
+        %Set of data for same image, all parameters
+        %Each matrix represents: 1 image = 1 row, 1 column = 1 parameter
+        General_distortion_B = [ General_distortion_B ; COMP_distortion_B ]; 
         General_average_power_saving_B = [General_average_power_saving_B ; COMP_power_saving_B];
         
         General_distortion_R = [ General_distortion_R ; COMP_distortion_R ];
@@ -95,9 +129,8 @@ for k = 1:length(myFiles) + length(myFiles2)
 
 end
 
-
-
-0.Average_distortion_B = sum(General_distortion_B) ./ number_images;
+%Set of data for all images, all parameters
+Average_distortion_B = sum(General_distortion_B) ./ number_images;
 Average_average_power_saving_B = sum(General_average_power_saving_B) ./ number_images;
 
 Average_distortion_R = sum(General_distortion_R) ./ number_images;
