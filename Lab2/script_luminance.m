@@ -18,7 +18,10 @@ prompt = "What is the step ? ";
 luminance_parameterSTEP = input(prompt);
 
 myDir = strcat(pwd,'\misc\') ; %gets directory   
+myDir2 = strcat(pwd,'\test\') ; %gets directory 2
 myFiles = dir(fullfile(myDir,'*.tiff')); %gets all tiff files in struct
+myFiles2 = dir(fullfile(myDir2,'*.jpg')); %gets all tiff files in struct
+
 
 General_distortion = [];
 General_average_power_saving = [];
@@ -26,11 +29,21 @@ General_original_power = [];
 luminance_param = [];
 number_images = 0;
 
-for k = 1:length(myFiles)
-    %Read original image
-    filename = strcat(myDir, num2str(myFiles(k).name));
-    img_rgb = imread(filename);
+elements_folder1 = 1;
+elements_folder2 = 1;
 
+for k = 1:length(myFiles) + length(myFiles2)
+    %Read first folder
+    if k <= length(myFiles)
+        filename = strcat(myDir, num2str(myFiles(elements_folder1).name));
+        elements_folder1 = elements_folder1 + 1;
+    %Read second folder
+    else
+        filename = strcat(myDir2, num2str(myFiles2(elements_folder2).name));
+        elements_folder2 = elements_folder2 + 1;
+
+    end 
+    img_rgb = imread(filename);
 
     if length(size(img_rgb)) == 3 %filter out grayscale images
         image_power_consumption = P_image(img_rgb);
