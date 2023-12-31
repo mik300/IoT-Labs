@@ -1,5 +1,3 @@
-clear
-clc
 prompt = "What is the initial value to analyze ? ";
 constant_INIT = input(prompt);
 
