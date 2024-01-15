@@ -1,4 +1,4 @@
-function  mod_img = luminance_transformation(original_img, b)
+function  mod_img = contrast_enhancement(original_img, b)
 pre_mod_img = rgb2hsv(original_img);
 pre_mod_img(:, :, 3) = pre_mod_img(:, :, 3) * b;
 mod_img = hsv2rgb(pre_mod_img);
