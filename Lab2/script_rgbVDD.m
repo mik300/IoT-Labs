@@ -25,10 +25,9 @@ myFiles2 = dir(fullfile(myDir2,'*.jpg')); %gets all tiff files in struct
 
 General_distortion_DVS_ori = [];
 General_average_power_saving_DVS_ori = [];
-General_original_power_DVS_ori = [];
 General_distortion_modDVS_ori = [];
 General_average_power_saving_modDVS_ori = [];
-General_original_power_modDVS_ori = [];
+
 Vdd_param = [];
 number_images = 0;
 
@@ -91,11 +90,9 @@ for k = 1:length(myFiles) + length(myFiles2)
     
         COMP_distortion_DVS_ori = [];
         COMP_power_saving_DVS_ori = [];
-        COMP_original_power_DVS_ori = [];
 
         COMP_distortion_modDVS_ori = [];
         COMP_power_saving_modDVS_ori = [];
-        COMP_original_power_modDVS_ori = [];
         
         for i = Vdd_parameterINIT : Vdd_parameterSTEP : Vdd_parameterOUT
 
@@ -207,9 +204,30 @@ Average_distortion_modDVS_ori = sum(General_distortion_modDVS_ori) ./ number_ima
 Average_average_power_saving_modDVS_ori = sum(General_average_power_saving_modDVS_ori) ./ number_images;
 
 
-
-
-
-
-
-
+clear average_power_saving_DVS_ori
+clear average_power_saving_modDVS_ori
+clear dist_max_savings_DVS_ori
+clear dist_max_savings_modDVS_ori
+clear dist_min_savings_DVS_ori
+clear dist_min_savings_modDVS_ori
+clear dist_Vdd_max_DVS_ori
+clear dist_Vdd_max_modDVS_ori
+clear dist_Vdd_min_DVS_ori
+clear dist_Vdd_min_modDVS_ori
+clear distortion_DVS_percentage
+clear distortion_modDVS_ori_percentage
+clear elements_folder1
+clear elements_folder2
+clear i_cell
+clear i_cell_mod
+clear image_DVS_power_consumption
+clear image_modDVS_power_consumption
+clear img_DVS
+clear mod_img_DVS
+clear myDir
+clear myDir2
+clear myFiles
+clear myFiles2
+clear number_images
+clear image_power_consumption
+clear prompt
