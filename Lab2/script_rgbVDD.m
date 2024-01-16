@@ -5,7 +5,7 @@ Vdd_parameterINIT = input(prompt);
 
 if Vdd_parameterINIT <= 0 
    error('Input cannot be equal or lower than 0'); 
-end;
+end
 
 prompt = "What is the final Vdd to analyze ? ";
 Vdd_parameterOUT = input(prompt);
@@ -100,7 +100,7 @@ for k = 1:length(myFiles) + length(myFiles2)
         for i = Vdd_parameterINIT : Vdd_parameterSTEP : Vdd_parameterOUT
 
             %Power consumption and distortion when applying DVS without tranformations
-            i_cell = I_cell(i, img_rgb);
+            i_cell = I_cell(i, double(img_rgb));
             img_DVS = (displayed_image(i_cell, i, 1)/255);
             image_DVS_power_consumption = P_panel(i, img_DVS);
             average_power_saving_DVS_ori = saving_perc(image_power_consumption, image_DVS_power_consumption);
@@ -108,7 +108,7 @@ for k = 1:length(myFiles) + length(myFiles2)
             
             b = i*2; % b depends on the ratio of Vdd and the original Vdd
             mod_img = brightness_scaling(img_rgb, b);
-            i_cell_mod = I_cell(i, mod_img);
+            i_cell_mod = I_cell(i, double(mod_img));
             mod_img_DVS = (displayed_image(i_cell_mod, i, 1)/255);
             image_modDVS_power_consumption = P_panel(i, mod_img_DVS);
             distortion_modDVS_ori_percentage = distortion_perc(img_rgb, mod_img_DVS);
