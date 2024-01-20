@@ -15,7 +15,7 @@ if Vdd_parameterOUT <= Vdd_parameterINIT
 end
 
 if Vdd_parameterOUT > 15  
-   error('Final value cannot be greater than'); 
+   error('Final value can be equal to 15, but not greater'); 
 end
 
 prompt = "What is the step ? ";
@@ -93,7 +93,8 @@ for k = 1:length(myFiles) + length(myFiles2)
 
     if length(size(img_rgb)) == 3 %filter out grayscale images
         %Power consumption without applying neither DVS nor transformations
-        image_power_consumption = P_panel(15, img_rgb);
+        i_cell_original = I_cell(15, double(img_rgb));
+        image_power_consumption = P_panel(15, i_cell_original);
 
 
         number_images = number_images + 1;

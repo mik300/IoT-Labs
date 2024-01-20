@@ -1,7 +1,7 @@
 figure
 scatter(Average_distortion_modDVS_ori, Average_average_power_saving_modDVS_ori, 'filled','b');
 title("Average power vs Average distortion using DVS and brightness scaling")
-ylabel('Average power')
+ylabel('Average power savings')
 xlabel('Average distortion') 
 grid
 label = strcat('Vdd = ', num2str(Vdd_param));
