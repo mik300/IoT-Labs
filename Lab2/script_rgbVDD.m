@@ -17,6 +17,9 @@ end
 prompt = "What is the step ? ";
 Vdd_parameterSTEP = input(prompt);
 
+prompt = "What is the maximum distorsion to consider(in %)? ";
+desired_maximum_distorsion = input(prompt);
+
 myDir = strcat(pwd,'\misc\') ; %gets directory   
 myDir2 = strcat(pwd,'\test\') ; %gets directory 2
 myFiles = dir(fullfile(myDir,'*.tiff')); %gets all tiff files in struct
@@ -29,6 +32,7 @@ General_distortion_modDVS_ori = [];
 General_average_power_saving_modDVS_ori = [];
 
 Vdd_param = [];
+Matrix_compareVDDb = [];
 number_images = 0;
 
 elements_folder1 = 1;
@@ -111,6 +115,7 @@ for k = 1:length(myFiles) + length(myFiles2)
             distortion_modDVS_ori_percentage = distortion_perc(img_rgb, mod_img_DVS);
             average_power_saving_modDVS_ori = saving_perc(image_power_consumption, image_modDVS_power_consumption);
 
+           
 
             %To calculate representative information
             if distortion_DVS_percentage >= dist_Vdd_max_DVS_ori
@@ -165,7 +170,9 @@ for k = 1:length(myFiles) + length(myFiles2)
                 saving_min_dist_modDVS_ori = distortion_modDVS_ori_percentage;
             end 
 
-
+            if distortion_modDVS_ori_percentage<= desired_maximum_distorsion %If the distorsion is below our desired distorsion
+                Matrix_compareVDDb = [Matrix_compareVDDb; b i average_power_saving_modDVS_ori distortion_modDVS_ori_percentage];
+            end 
             COMP_distortion_DVS_ori= [COMP_distortion_DVS_ori distortion_DVS_percentage];
             COMP_power_saving_DVS_ori = [COMP_power_saving_DVS_ori average_power_saving_DVS_ori];
 
