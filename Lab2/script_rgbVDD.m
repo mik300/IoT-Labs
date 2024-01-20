@@ -1,4 +1,4 @@
-clear all
+%clear all
 clc
 prompt = "What is the initial Vdd to analyze ? ";
 Vdd_parameterINIT = input(prompt);
@@ -71,6 +71,8 @@ dist_max_savings_modDVS_ori = 0; %what is the power savings when we get max dist
 dist_min_savings_modDVS_ori = 0;
 saving_max_dist_modDVS_ori = 0; %what is the distortion when we get max power savings
 saving_min_dist_modDVS_ori = 0;
+
+array_of_Vdd = [];
 
 for k = 1:length(myFiles) + length(myFiles2)
     %Read first folder
