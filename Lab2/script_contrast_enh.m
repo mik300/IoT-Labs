@@ -1,4 +1,4 @@
-clear all
+%clear all
 clc
 prompt = "What is the initial Vdd to analyze ? ";
 Vdd_parameterINIT = input(prompt);
@@ -87,7 +87,8 @@ for k = 1:length(myFiles) + length(myFiles2)
 
     if length(size(img_rgb)) == 3 %filter out grayscale images
         %Power consumption without applying neither DVS nor transformations
-        image_power_consumption = P_panel(15, img_rgb);
+        i_cell_original = I_cell(15, double(img_rgb));
+        image_power_consumption = P_panel(15, i_cell_original);
 
 
         number_images = number_images + 1;
@@ -107,7 +108,7 @@ for k = 1:length(myFiles) + length(myFiles2)
             average_power_saving_DVS_ori_contrast = saving_perc(image_power_consumption, image_DVS_power_consumption);
             distortion_DVS_percentage_contrast = distortion_perc(img_rgb, img_DVS);
             
-            b = i*2; % b depends on the ratio of Vdd and the original Vdd
+            b = 15 - i; % b depends on the ratio of Vdd and the original Vdd
             mod_img = contrast_enhancement(img_rgb, b);
             i_cell_mod = I_cell(i, double(mod_img));
             mod_img_DVS = (displayed_image(i_cell_mod, i, 1)/255);

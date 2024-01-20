@@ -107,7 +107,7 @@ for k = 1:length(myFiles) + length(myFiles2)
             average_power_saving_DVS_ori_contrast = saving_perc(image_power_consumption, image_DVS_power_consumption);
             distortion_DVS_percentage_contrast = distortion_perc(img_rgb, img_DVS);
             
-            b = i*2; % b depends on the ratio of Vdd and the original Vdd
+            b = i; % b depends on the ratio of Vdd and the original Vdd
             mod_img = contrast_enhancement(img_rgb, b);
             i_cell_mod = I_cell(i, double(mod_img));
             mod_img_DVS = (displayed_image(i_cell_mod, i, 1)/255);
