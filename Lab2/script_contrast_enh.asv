@@ -164,7 +164,7 @@ for k = 1:length(myFiles) + length(myFiles2)
                 saving_max_dist_modDVS_ori_contrast = distortion_modDVS_ori_percentage_contrast;
             end 
             if average_power_saving_modDVS_ori_contrast <= saving_Vdd_min_modDVS_ori_contrast
-                saving_Vdd_min_modDVS_ori_contrast = average_power_saving_modDVS_ori_contrast; 
+                saving_Vdd_min_modDVS_ori_contrast = average_power_saving_modDVS_ori_contrast;  
                 filename_Vdd_min_saving_modDVS_ori_contrast = filename;
                 param_Vdd_min_power_savings_modDVS_ori_contrast = i;
                 saving_min_dist_modDVS_ori_contrast = distortion_modDVS_ori_percentage_contrast;
@@ -190,25 +190,25 @@ for k = 1:length(myFiles) + length(myFiles2)
 
 end
 
-results_DVS_ori = [" " "Filename" "Parameter" "Power savings" "Distortion";
+results_DVS_ori_contrast = [" " "Filename" "Parameter" "Power savings" "Distortion";
             "Max distortion" filename_Vdd_max_dist_DVS_ori_contrast param_Vdd_max_distorsion_DVS_ori_contrast dist_max_savings_DVS_ori_contrast dist_Vdd_max_DVS_ori_contrast;
             "Min distortion" filename_Vdd_min_dist_DVS_ori_contrast param_Vdd_min_distorsion_DVS_ori_contrast dist_min_savings_DVS_ori_contrast dist_Vdd_min_DVS_ori_contrast;
             "Max power savings" filename_Vdd_max_saving_DVS_ori_contrast param_Vdd_max_power_savings_DVS_ori_contrast saving_Vdd_max_DVS_ori_contrast saving_max_dist_DVS_ori_contrast;
             "Min power savings" filename_Vdd_min_saving_DVS_ori_contrast param_Vdd_min_power_savings_DVS_ori_contrast saving_Vdd_min_DVS_ori_contrast saving_min_dist_DVS_ori_contrast;
             ] 
 
-results_modDVS_ori = [" " "Filename" "Parameter" "Power savings" "Distortion";
+results_modDVS_ori_contrast = [" " "Filename" "Parameter" "Power savings" "Distortion";
             "Max distortion" filename_Vdd_max_dist_modDVS_ori_contrast param_Vdd_max_distorsion_modDVS_ori_contrast dist_max_savings_modDVS_ori_contrast dist_Vdd_max_modDVS_ori_contrast;
             "Min distortion" filename_Vdd_min_dist_modDVS_ori_contrast param_Vdd_min_distorsion_modDVS_ori_contrast dist_min_savings_modDVS_ori_contrast dist_Vdd_min_modDVS_ori_contrast;
             "Max power savings" filename_Vdd_max_saving_modDVS_ori_contrast param_Vdd_max_power_savings_modDVS_ori_contrast saving_Vdd_max_modDVS_ori_contrast saving_max_dist_modDVS_ori_contrast;
             "Min power savings" filename_Vdd_min_saving_modDVS_ori_contrast param_Vdd_min_power_savings_modDVS_ori_contrast saving_Vdd_min_modDVS_ori_contrast saving_min_dist_modDVS_ori_contrast;
             ] 
 
-Average_distortion_DVS_ori = sum(General_distortion_DVS_ori_contrast) ./ number_images;
-Average_average_power_saving_DVS_ori = sum(General_average_power_saving_DVS_ori_contrast) ./ number_images;
+Average_distortion_DVS_ori_contrast = sum(General_distortion_DVS_ori_contrast) ./ number_images;
+Average_average_power_saving_DVS_ori_contrast = sum(General_average_power_saving_DVS_ori_contrast) ./ number_images;
 
-Average_distortion_modDVS_ori = sum(General_distortion_modDVS_ori_contrast) ./ number_images;
-Average_average_power_saving_modDVS_ori = sum(General_average_power_saving_modDVS_ori_contrast) ./ number_images;
+Average_distortion_modDVS_ori_contrast = sum(General_distortion_modDVS_ori_contrast) ./ number_images;
+Average_average_power_saving_modDVS_ori_contrast = sum(General_average_power_saving_modDVS_ori_contrast) ./ number_images;
 
 
 clear average_power_saving_DVS_ori_contrast
