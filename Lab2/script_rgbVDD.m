@@ -14,6 +14,10 @@ if Vdd_parameterOUT <= Vdd_parameterINIT
    error('Final value cannot be lower or equal to initial value'); 
 end
 
+if Vdd_parameterOUT > 15  
+   error('Final value cannot be greater than'); 
+end
+
 prompt = "What is the step ? ";
 Vdd_parameterSTEP = input(prompt);
 
@@ -109,7 +113,7 @@ for k = 1:length(myFiles) + length(myFiles2)
             average_power_saving_DVS_ori = saving_perc(image_power_consumption, image_DVS_power_consumption);
             distortion_DVS_percentage = distortion_perc(img_rgb, img_DVS);
             
-            b = i*2; % b depends on the ratio of Vdd and the original Vdd
+            b = 15 - i; % b depends on the ratio of Vdd and the original Vdd
             mod_img = brightness_scaling(img_rgb, b);
             i_cell_mod = I_cell(i, double(mod_img));
             mod_img_DVS = (displayed_image(i_cell_mod, i, 1)/255);
