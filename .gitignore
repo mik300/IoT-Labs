@@ -10,6 +10,8 @@ Lab1/dpm-simulator/dpm_policies.exe
 Lab1/dpm-simulator/src/dpm_policies.o
 Lab1/dpm-simulator/src/psm.o
 Lab1/dpm-simulator/src/utilities.o
+Lab2/misc
+Lab2/test
 Lab2/luminance_transformation.asv
 Lab2/script_luminance.asv
 Lab2/script_rgb_constant.asv
