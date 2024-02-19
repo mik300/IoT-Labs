@@ -20,4 +20,4 @@ title("Average power saving vs Average distortion", 'FontSize', 14)
 ylabel('Average power saving', 'FontSize', 16)
 xlabel('Average distortion', 'FontSize', 16) 
 grid
-legend('Blue transformation', '', 'Red transformation', '', "Green transformation", '', "Histogram equalization", '', "lab transformation", '',  'FontSize', 14)
+legend('Blue transformation', '', 'Red transformation', '', "Green transformation", '', "hsv transformation", '', "lab transformation", '',  'FontSize', 14)
