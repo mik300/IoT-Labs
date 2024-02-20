@@ -1,0 +1,29 @@
+V_oc fitting:
+Linear model Poly3:
+     f(x) = p1*x^3 + p2*x^2 + p3*x + p4
+Coefficients (with 95% confidence bounds):
+       p1 =       5.082  (4.485, 5.678)
+       p2 =      -7.982  (-8.89, -7.074)
+       p3 =       6.191  (5.803, 6.579)
+       p4 =      0.0895  (0.0453, 0.1337)
+
+Goodness of fit:
+  SSE: 0.04872
+  R-square: 0.9982
+  Adjusted R-square: 0.9981
+  RMSE: 0.03731
+---------------------------------------------------
+R fitting:
+Linear model Poly3:
+     f(x) = p1*x^3 + p2*x^2 + p3*x + p4
+Coefficients (with 95% confidence bounds):
+       p1 =  -0.0004523  (-0.000734, -0.0001706)
+       p2 =  -0.0002483  (-0.0006772, 0.0001805)
+       p3 =   0.0008551  (0.0006719, 0.001038)
+       p4 =  -2.061e-05  (-4.149e-05, 2.665e-07)
+
+Goodness of fit:
+  SSE: 1.087e-08
+  R-square: 0.9691
+  Adjusted R-square: 0.9664
+  RMSE: 1.762e-05
