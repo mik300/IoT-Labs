@@ -114,7 +114,7 @@ for k = 1:length(myFiles) + length(myFiles2)
             average_power_saving_DVS_ori = saving_perc(image_power_consumption, image_DVS_power_consumption);
             distortion_DVS_percentage = distortion_perc(img_rgb, img_DVS);
             
-            b = (15 - i)*5; % b depends on the ratio of Vdd and the original Vdd
+            b = (i - ((15 - i) / 15)) / 15; % b depends on the ratio of Vdd and the original Vdd
             mod_img = brightness_scaling(img_rgb, b);
             i_cell_mod = I_cell(i, double(mod_img));
             mod_img_DVS = (displayed_image(i_cell_mod, i, 1)/255);
