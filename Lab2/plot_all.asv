@@ -1,0 +1,45 @@
+figure
+hold on
+orange = "#D95319";
+%blue transformartion
+scatter(Average_distortion_B, Average_average_power_saving_B, 'filled', 'b');
+plot(Average_distortion_B, Average_average_power_saving_B, 'Color', 'b');
+
+%red transformartion
+scatter(Average_distortion_R, Average_average_power_saving_R, 'filled', 'r');
+plot(Average_distortion_R, Average_average_power_saving_R, 'Color', 'r');
+
+%green transformartion
+scatter(Average_distortion_G, Average_average_power_saving_G, 'filled', 'g');
+plot(Average_distortion_G, Average_average_power_saving_G, 'Color', 'g');
+
+%lab transformartion
+scatter(Average_distortion_luminance, Average_average_power_saving_luminance, 'Filled', 'MarkerEdgeColor', 'k', 'MarkerFaceColor', 'k');
+plot(Average_distortion_luminance, Average_average_power_saving_luminance, 'Color', 'k');
+
+%lab transformartion
+scatter(Average_distortion_lab, Average_average_power_saving_lab, 'Filled', 'MarkerEdgeColor', orange, 'MarkerFaceColor', orange);
+plot(Average_distortion_lab, Average_average_power_saving_lab, 'Color', orange);
+
+%CE and BS
+scatter(Average_distortion_modDVS_ori_both, Average_average_power_saving_modDVS_ori_both, 'filled','b');
+plot(Average_distortion_modDVS_ori_both, Average_average_power_saving_modDVS_ori_both, 'b');
+
+%Contrast enhancement
+scatter(Average_distortion_modDVS_ori_contrast, Average_average_power_saving_modDVS_ori_contrast, 'filled','b');
+plot(Average_distortion_modDVS_ori_contrast, Average_average_power_saving_modDVS_ori_contrast, 'b');
+
+%Brightness scaling
+scatter(Average_distortion_modDVS_ori, Average_average_power_saving_modDVS_ori, 'filled','b');
+plot(Average_distortion_modDVS_ori, Average_average_power_saving_modDVS_ori, 'b');
+
+%DVS only
+scatter(Average_distortion_DVS_ori, Average_average_power_saving_DVS_ori, 'filled','r');
+plot(Average_distortion_DVS_ori, Average_average_power_saving_DVS_ori, 'r');
+
+title("Average power vs Average distortion for all techniques", 'FontSize', 14)
+ylabel('Average power savings', 'FontSize', 16)
+xlabel('Average distortion', 'FontSize', 16) 
+grid
+
+legend('Blue transformation', '', 'Red transformation', '', "Green transformation", '', "hsv transformation", '', "lab transformation", '',  'FontSize', 14)

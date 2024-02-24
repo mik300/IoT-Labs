@@ -1,4 +1,3 @@
-%clear all
 clc
 prompt = "What is the initial Vdd to analyze ? ";
 Vdd_parameterINIT = input(prompt);
