@@ -21,7 +21,7 @@ end
 prompt = "What is the step ? ";
 Vdd_parameterSTEP = input(prompt);
 
-prompt = "What is the maximum distorsion to consider(in %)? ";
+prompt = "What is the maximum distortion to consider(in %)? ";
 desired_maximum_distorsion = input(prompt);
 
 myDir = strcat(pwd,'\misc\') ; %gets directory   
@@ -114,7 +114,7 @@ for k = 1:length(myFiles) + length(myFiles2)
             average_power_saving_DVS_ori_both = saving_perc(image_power_consumption, image_DVS_power_consumption);
             distortion_DVS_percentage_both = distortion_perc(img_rgb, img_DVS);
             
-            b = 15 - i; % b depends on the ratio of Vdd and the original Vdd
+            b = (i - ((15 - i) / 15)) / 15; % b depends on the ratio of Vdd and the original Vdd
             mod_img = brightness_scaling(img_rgb, b);
             mod_img = contrast_enhancement(mod_img,b);
             i_cell_mod = I_cell(i, double(mod_img));
